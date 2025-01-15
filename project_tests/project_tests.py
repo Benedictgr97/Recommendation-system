@@ -1,7 +1,6 @@
 import pandas as pd
 import numpy as np
 import pickle
-import os
 
 df = pd.read_csv('data/user-item-interactions.csv')
 df_content = pd.read_csv('data/articles_community.csv')
@@ -31,61 +30,16 @@ def sol_1_test(sol_1_dict):
                 
                 
 def sol_2_test(top_articles):
-    
     top_5 = top_articles(5)
     top_10 = top_articles(10)
     top_20 = top_articles(20)
     
-    user_answer = [top_5, top_10, top_20]
-    
-    
-    top_5_test = ['use deep learning for image classification',
-                  'predicting churn with the spss random tree algorithm',
-                  'use xgboost, scikit-learn & ibm watson machine learning apis',
-                  'visualize car data with brunel',
-                  'insights from new york car accident reports']
-    
-    top_10_test = ['gosales transactions for logistic regression model',
-                  'use deep learning for image classification',
-                  'healthcare python streaming application demo',
-                  'predicting churn with the spss random tree algorithm',
-                  'use xgboost, scikit-learn & ibm watson machine learning apis',
-                  'apache spark lab, part 1: basic concepts',
-                  'visualize car data with brunel',
-                  'finding optimal locations of new store using decision optimization',
-                  'insights from new york car accident reports',
-                  'analyze energy consumption in buildings']
-    
-    top_20_test = ['gosales transactions for logistic regression model',
-                  'use deep learning for image classification',
-                  'putting a human face on machine learning',
-                  'healthcare python streaming application demo',
-                  'predicting churn with the spss random tree algorithm',
-                  'the nurse assignment problem',
-                  'use xgboost, scikit-learn & ibm watson machine learning apis',
-                  'deep learning with tensorflow course by big data university',
-                  'classify tumors with machine learning',
-                  'customer demographics and sales',
-                  'welcome to pixiedust',
-                  'model bike sharing data with spss',
-                  'apache spark lab, part 1: basic concepts',
-                  'analyze accident reports on amazon emr spark',
-                  'visualize car data with brunel',
-                  'finding optimal locations of new store using decision optimization',
-                  'insights from new york car accident reports',
-                  'total population by country',
-                  'movie recommender system with spark machine learning',
-                  'analyze energy consumption in buildings']
-
-    for idx, file in enumerate([('top_5', top_5_test), 
-                                ('top_10', top_10_test),
-                                ('to_20', top_20_test)]):
-        
-        
-        if set(file[1]) == set(user_answer[idx]):
-            print("Your {} looks like the solution list! Nice job.".format(file[0]))
+    checks = ['top_5', 'top_10', 'top_20']
+    for idx, file in enumerate(checks):
+        if set(eval(file)) == set(pickle.load(open( "{}.p".format(file), "rb" ))):
+            print("Your {} looks like the solution list! Nice job.".format(file))
         else:
-            print("Oops! The {} list doesn't look how we expected.  Try again.".format(file[0]))
+            print("Oops! The {} list doesn't look how we expected.  Try again.".format(file))
     
     
     
@@ -118,7 +72,7 @@ def sol_4_test(sol_4_dict):
     }
     
     if sol_4_dict == sol_4_dict_1:
-        print("Awesome job!  That's right!  All of the test movies are in the training data, but there are only 20 test users that were also in the training set.  All of the other users that are in the test set we have no data on.  Therefore, we cannot make predictions for these users using SVD.")
+        print("Awesome job!  That's right!  All of the test articles are in the training data, but there are only 20 test users that were also in the training set.  All of the other users that are in the test set we have no data on.  Therefore, we cannot make predictions for these users using SVD.")
     else:
         for k, v in sol_4_dict_1.items():
             if sol_4_dict_1[k] != sol_4_dict[k]:
